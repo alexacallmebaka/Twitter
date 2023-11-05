@@ -30,7 +30,10 @@ class Listener:
             #need to check if data exists and if it is a string.
             if stream_data and type(stream_data['data']) == str:
                 try:
-                    print(msg.Message.deserialize(stream_data['data']))
+                    inbound_msg = msg.Message.deserialize(stream_data['data'])
+
+                    print(f'[{inbound_msg.author} @ {inbound_msg.timestamp}] {inbound_msg.msg_content}')
+
                     if self.debug:
                         logging.debug(f'Message recieved: \"{stream_data["data"]}\"')
 

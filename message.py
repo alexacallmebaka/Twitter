@@ -11,9 +11,10 @@ MessageType = ty.TypeVar("MessageType", bound="Message")
 class Message:
     """Class for all data related to a given message."""
 
-    def __init__(self, msg_content: str, timestamp: dt.datetime=dt.datetime.today()) -> None:
+    def __init__(self, msg_content: str, author: str, timestamp: dt.datetime=dt.datetime.today()) -> None:
         self.timestamp: dt.datetime = timestamp
         self.msg_content: str = msg_content
+        self.author: str = author
 
     @classmethod
     def deserialize(cls, msg_json: str) -> MessageType:
@@ -24,6 +25,7 @@ class Message:
         """Serialize message as JSON-encoded string."""
         return json.dumps({ 'timestamp': self.timestamp.isoformat()
                           , 'msg_content': self.msg_content
+                          , 'author': self.author
                           })
 
     def __str__(self) -> str:
