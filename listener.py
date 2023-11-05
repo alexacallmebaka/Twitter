@@ -14,7 +14,7 @@ class Listener:
     def __init__(self, room: str,  port: int = 6379, host: str = 'localhost', debug: bool = False) -> None:
         self.room: str = room
 
-        self.debug = debug
+        self.debug: bool = debug
 
         self.server : redis.Redis.PubSub = redis.Redis(host=host, port=port, decode_responses=True).pubsub()
 
@@ -36,7 +36,7 @@ class Listener:
 
                 #just ignore bad message, output in debug log
                 except json.JSONDecodeError:
-                    logging.debug(f'[ERROR] Bad message recieved: \"{stream_data["data"]}\"')
+                    logging.debug(f'Bad message recieved: \"{stream_data["data"]}\"')
 
 
 
